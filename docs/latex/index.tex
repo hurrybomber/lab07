@@ -1,0 +1,627 @@
+Данная лабораторная работа посвещена изучению систем документирования исходного кода на примере {\bfseries Doxygen}
+
+
+\begin{DoxyCode}
+$ open https://www.stack.nl/~dimitri/doxygen/manual/index.html
+\end{DoxyCode}
+
+
+\subsection*{Tasks}
+
+
+\begin{DoxyItemize}
+\item \mbox{[} \mbox{]} 1. Создать публичный репозиторий с названием {\bfseries lab07} на сервисе {\bfseries Git\+Hub}
+\item \mbox{[} \mbox{]} 2. Выполнить инструкцию учебного материала
+\item \mbox{[} \mbox{]} 3. Ознакомиться со ссылками учебного материала
+\item \mbox{[} \mbox{]} 4. Составить отчет и отправить ссылку личным сообщением в {\bfseries Slack}
+\end{DoxyItemize}
+
+\subsection*{Tutorial}
+
+
+\begin{DoxyCode}
+$ export GITHUB\_USERNAME=<имя\_пользователя> //создаем переменную с логином гитхаба
+$ export TEACHER\_EMAIL=<rusdevops@gmail.com|justcppdev@gmail.com> //переменная с почтой преподавателя
+$ alias edit=<nano|vi|vim|subl> //псевдоним для текстового редактора
+$ alias gsed=sed # for *-nix system //псевдоним для команды sed
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ cd $\{GITHUB\_USERNAME\}/workspace //переходим в каталог
+$ pushd . //повзращаем текующий каталог на верхний стек
+~/WhiteRabbitRo/workspace ~/WhiteRabbitRo/workspace
+
+$ source scripts/activate //выполняем скрипты
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ wget https://redirector.gvt1.com/edgedl/go/go1.9.2.linux-amd64.tar.gz //скачиваем go
+--2018-05-13 23:58:23--  https://redirector.gvt1.com/edgedl/go/go1.9.2.linux-amd64.tar.gz
+Распознаётся redirector.gvt1.com (redirector.gvt1.com)… 64.233.165.198
+Подключение к redirector.gvt1.com (redirector.gvt1.com)|64.233.165.198|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 302 Found
+Адрес:
+       https://r9---sn-n8v7zn7d.gvt1.com/edgedl/go/go1.9.2.linux-amd64.tar.gz?cms\_redirect=yes&ip=46.39.53.1
+      79&ipbits=0&mm=28&mn=sn-n8v7zn7d&ms=nvh&mt=1526245033&mv=m&nh=IgpwcjAyLnN2bzA1KgkxMjcuMC4wLjE&pl=24&shardbypass=yes [переход]
+--2018-05-13 23:58:24-- 
+       https://r9---sn-n8v7zn7d.gvt1.com/edgedl/go/go1.9.2.linux-amd64.tar.gz?cms\_redirect
+      =yes&ip=46.39.53.179&ipbits=0&mm=28&mn=sn-n8v7zn7d&ms=nvh&mt=1526245033&mv=m&nh=IgpwcjAyLnN2bzA1KgkxMjcuMC4wLjE&pl=24&shardbypass=yes
+Распознаётся r9---sn-n8v7zn7d.gvt1.com (r9---sn-n8v7zn7d.gvt1.com)… 173.194.58.24
+Подключение к r9---sn-n8v7zn7d.gvt1.com (r9---sn-n8v7zn7d.gvt1.com)|173.194.58.24|:443... соединение
+       установлено.
+HTTP-запрос отправлен. Ожидание ответа… 302 Found
+Адрес:
+       https://r5---sn-4g5e6n76.gvt1.com/edgedl/go/go1.9.2.linux-amd64.tar.gz?ip=46.39.53.179&ipbits=0&pl=24
+      &shardbypass=yes&redirect\_counter=1&cm2rm=sn-n8vz77y&req\_id=6b4641aae22e6822&cms\_redirect=yes&mm=34&mn=sn-4g5e6n76&ms=ltu&mt=1526244921&mv=m [переход]
+--2018-05-13 23:58:24-- 
+       https://r5---sn-4g5e6n76.gvt1.com/edgedl/go/go1.9.2.linux-amd64.tar.gz?ip=46.39.53.
+      179&ipbits=0&pl=24&shardbypass=yes&redirect\_counter=1&cm2rm=sn-n8vz77y&req\_id=6b4641aae22e6822&cms\_redirect=yes&mm=34&mn=sn-4g5e6n76&ms=ltu&mt=1526244921&mv=m
+Распознаётся r5---sn-4g5e6n76.gvt1.com (r5---sn-4g5e6n76.gvt1.com)… 173.194.151.139
+Подключение к r5---sn-4g5e6n76.gvt1.com (r5---sn-4g5e6n76.gvt1.com)|173.194.151.139|:443... соединение
+       установлено.
+HTTP-запрос отправлен. Ожидание ответа… 200 OK
+Длина: 104247844 (99M) [application/octet-stream]
+Сохранение в: «go1.9.2.linux-amd64.tar.gz»
+
+go1.9.2.linux-amd64 100%[===================>]  99,42M  11,0MB/s    за 9,3s    
+
+2018-05-13 23:58:34 (10,7 MB/s) - «go1.9.2.linux-amd64.tar.gz» сохранён [104247844/104247844]
+
+
+$ tar -C . -xzf go1.9.2.linux-amd64.tar.gz //разархивируем
+$ rm -rf go1.9.2.linux-amd64.tar.gz //удаляем архив
+$ echo "export GOROOT=`pwd`/go" >> scripts/activate //записываем строчку в файл со скриптом
+$ echo "export GOPATH=`pwd`/go\_modules" >> scripts/activate //аналогично
+$ echo "export PATH=\(\backslash\)$\{PATH\}:\(\backslash\)$\{GOROOT\}/bin" >> scripts/activate //аналогично
+$ echo "export PATH=\(\backslash\)$\{PATH\}:\(\backslash\)$\{GOPATH\}/bin" >> scripts/activate //аналогично
+$ source scripts/activate //выполняем скрипты
+$ go get github.com/prasmussen/gdrive //устанавливаем gdrive
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ git clone https://github.com/$\{GITHUB\_USERNAME\}/lab06 projects/lab07 //копируем репозиторий
+Cloning into 'projects/lab07'...
+remote: Counting objects: 45, done.
+remote: Compressing objects: 100% (28/28), done.
+remote: Total 45 (delta 12), reused 38 (delta 9), pack-reused 0
+Unpacking objects: 100% (45/45), done.
+
+$ cd projects/lab07 //переходим в каталог
+$ git remote remove origin //управление репозиторием
+$ git remote add origin https://github.com/$\{GITHUB\_USERNAME\}/lab07 //присваиваем новое имя
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ mkdir docs //создаем каталог docs
+$ doxygen -g docs/doxygen.conf //создаем документацию по проекту
+Now edit the configuration file and enter
+
+doxygen doxygen.conf
+
+to generate the documentation for your project
+
+MacBook-Air-mac:docs mac$ doxygen doxygen.conf
+Searching for include files...
+Searching for example files...
+Searching for images...
+Searching for dot files...
+Searching for msc files...
+Searching for dia files...
+Searching for files to exclude
+Searching INPUT for files to process...
+Searching for files in directory /Users/mac/WhiteRabbitRo/workspace/projects/lab07/docs
+Reading and parsing tag files
+Parsing files
+Building group list...
+Building directory list...
+Building namespace list...
+Building file list...
+Building class list...
+Associating documentation with classes...
+Computing nesting relations for classes...
+Building example list...
+Searching for enumerations...
+Searching for documented typedefs...
+Searching for members imported via using declarations...
+Searching for included using directives...
+Searching for documented variables...
+Building interface member list...
+Building member list...
+Searching for friends...
+Searching for documented defines...
+Computing class inheritance relations...
+Computing class usage relations...
+Flushing cached template relations that have become invalid...
+Computing class relations...
+Add enum values to enums...
+Searching for member function documentation...
+Creating members for template instances...
+Building page list...
+Search for main page...
+Computing page relations...
+Determining the scope of groups...
+Sorting lists...
+Freeing entry tree
+Determining which enums are documented
+Computing member relations...
+Building full member lists recursively...
+Adding members to member groups.
+Computing member references...
+Inheriting documentation...
+Generating disk names...
+Adding source references...
+Adding xrefitems...
+Sorting member lists...
+Computing dependencies between directories...
+Generating citations page...
+Counting data structures...
+Resolving user defined references...
+Finding anchors and sections in the documentation...
+Transferring function references...
+Combining using relations...
+Adding members to index pages...
+Generating style sheet...
+Generating search indices...
+Generating example documentation...
+Generating file sources...
+Generating file documentation...
+Generating page documentation...
+Generating group documentation...
+Generating class documentation...
+Generating namespace index...
+Generating graph info page...
+Generating directory documentation...
+Generating index page...
+Generating page index...
+Generating module index...
+Generating namespace index...
+Generating namespace member index...
+Generating annotated compound index...
+Generating alphabetical compound index...
+Generating hierarchical class index...
+Generating member index...
+Generating file index...
+Generating file member index...
+Generating example index...
+finalizing index lists...
+writing tag file...
+lookup cache used 0/65536 hits=0 misses=0
+finished...
+
+$ cat docs/doxygen.conf | less //открываем для записи
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ gsed -i 's/\(\backslash\)(PROJECT\_NAME.*=\(\backslash\)).*$/\(\backslash\)1 print/g' docs/doxygen.conf //записываем в параметр "Имя проекта"
+       новое имя
+$ gsed -i 's/\(\backslash\)(EXAMPLE\_PATH.*=\(\backslash\)).*$/\(\backslash\)1 examples/g' docs/doxygen.conf //в "Путь к примерам" - каталог
+       examples
+$ gsed -i 's/\(\backslash\)(INCLUDE\_PATH.*=\(\backslash\)).*$/\(\backslash\)1 examples/g' docs/doxygen.conf //включение каталога
+$ gsed -i 's/\(\backslash\)(EXTRACT\_ALL.*=\(\backslash\)).*$/\(\backslash\)1 YES/g' docs/doxygen.conf //извлекаем все
+$ gsed -i 's/\(\backslash\)(INPUT *=\(\backslash\)).*$/\(\backslash\)1 README.md include/g' docs/doxygen.conf //вывод в ридми
+$ gsed -i 's/\(\backslash\)(USE\_MDFILE\_AS\_MAINPAGE.*=\(\backslash\)).*$/\(\backslash\)1 README.md/g' docs/doxygen.conf //мэйнпэйдж - ридми
+$ gsed -i 's/\(\backslash\)(OUTPUT\_DIRECTORY.*=\(\backslash\)).*$/\(\backslash\)1 docs/g' docs/doxygen.conf //директория вывода - docs
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ gsed -i 's/lab06/lab07/g' README.md //записываем в ридми
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+# документируем функции print 
+$ edit include/print.hpp //открываем print.hpp в текстовом редакторе
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ git add . //добавляем все
+$ git commit -m"added doxygen.conf" //создаем коммит
+[master 0ca899e] added doxygen.conf
+48 files changed, 8714 insertions(+)
+create mode 100644 .DS\_Store
+create mode 100644 docs/.DS\_Store
+create mode 100644 docs/doxygen.conf
+create mode 100644 html/bc\_s.png
+create mode 100644 html/bdwn.png
+create mode 100644 html/closed.png
+create mode 100644 html/doc.png
+create mode 100644 html/doxygen.css
+create mode 100644 html/doxygen.png
+create mode 100644 html/dynsections.js
+create mode 100644 html/folderclosed.png
+create mode 100644 html/folderopen.png
+create mode 100644 html/index.html
+create mode 100644 html/jquery.js
+create mode 100644 html/md\_\_r\_e\_a\_d\_m\_e.html
+create mode 100644 html/menu.js
+create mode 100644 html/menudata.js
+create mode 100644 html/nav\_f.png
+create mode 100644 html/nav\_g.png
+create mode 100644 html/nav\_h.png
+create mode 100644 html/open.png
+create mode 100644 html/pages.html
+create mode 100644 html/search/all\_0.html
+create mode 100644 html/search/all\_0.js
+create mode 100644 html/search/close.png
+create mode 100644 html/search/mag\_sel.png
+create mode 100644 html/search/nomatches.html
+create mode 100644 html/search/pages\_0.html
+create mode 100644 html/search/pages\_0.js
+create mode 100644 html/search/search.css
+create mode 100644 html/search/search.js
+create mode 100644 html/search/search\_l.png
+create mode 100644 html/search/search\_m.png
+create mode 100644 html/search/search\_r.png
+create mode 100644 html/search/searchdata.js
+create mode 100644 html/splitbar.png
+create mode 100644 html/sync\_off.png
+create mode 100644 html/sync\_on.png
+create mode 100644 html/tab\_a.png
+create mode 100644 html/tab\_b.png
+create mode 100644 html/tab\_h.png
+create mode 100644 html/tab\_s.png
+create mode 100644 html/tabs.css
+create mode 100644 latex/Makefile
+create mode 100644 latex/doxygen.sty
+create mode 100644 latex/md\_\_r\_e\_a\_d\_m\_e.tex
+create mode 100644 latex/refman.tex
+create mode 100644 nano.save
+
+$ git push origin master //выгружаем на гитхаб
+Counting objects: 98, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (90/90), done.
+Writing objects: 100% (98/98), 240.84 KiB | 2.71 MiB/s, done.
+Total 98 (delta 17), reused 0 (delta 0)
+remote: Resolving deltas: 100% (17/17), done.
+To https://github.com/WhiteRabbitRo/lab07
+* [new branch]      master -> master
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ travis login --auto //логинимся автоматически на трэвисе
+Successfully logged in as WhiteRabbitRo!
+
+$ travis enable //подключаем сборку
+Detected repository as WhiteRabbitRo/lab07, is this correct? |yes| yes
+WhiteRabbitRo/lab07: enabled :)
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ doxygen docs/doxygen.conf //подключение документации
+Searching for include files...
+Searching for files in directory /Users/mac/WhiteRabbitRo/workspace/projects/lab07/examples
+Searching for example files...
+Searching for files in directory /Users/mac/WhiteRabbitRo/workspace/projects/lab07/examples
+Searching for images...
+Searching for dot files...
+Searching for msc files...
+Searching for dia files...
+Searching for files to exclude
+Searching INPUT for files to process...
+Searching for files in directory /Users/mac/WhiteRabbitRo/workspace/projects/lab07/include
+Reading and parsing tag files
+Parsing files
+Reading /Users/mac/WhiteRabbitRo/workspace/projects/lab07/README.md...
+Preprocessing /Users/mac/WhiteRabbitRo/workspace/projects/lab07/include/print.hpp...
+Parsing file /Users/mac/WhiteRabbitRo/workspace/projects/lab07/include/print.hpp...
+Building group list...
+Building directory list...
+Building namespace list...
+Building file list...
+Building class list...
+Associating documentation with classes...
+Computing nesting relations for classes...
+Building example list...
+Searching for enumerations...
+Searching for documented typedefs...
+Searching for members imported via using declarations...
+Searching for included using directives...
+Searching for documented variables...
+Building interface member list...
+Building member list...
+Searching for friends...
+Searching for documented defines...
+Computing class inheritance relations...
+Computing class usage relations...
+Flushing cached template relations that have become invalid...
+Computing class relations...
+Add enum values to enums...
+Searching for member function documentation...
+Creating members for template instances...
+Building page list...
+Search for main page...
+Computing page relations...
+Determining the scope of groups...
+Sorting lists...
+Freeing entry tree
+Determining which enums are documented
+Computing member relations...
+Building full member lists recursively...
+Adding members to member groups.
+Computing member references...
+Inheriting documentation...
+Generating disk names...
+Adding source references...
+Adding xrefitems...
+Sorting member lists...
+Computing dependencies between directories...
+Generating citations page...
+Counting data structures...
+Resolving user defined references...
+Finding anchors and sections in the documentation...
+Transferring function references...
+Combining using relations...
+Adding members to index pages...
+Generating style sheet...
+Generating search indices...
+Generating example documentation...
+Generating file sources...
+Generating code for file include/print.hpp...
+Generating file documentation...
+Generating docs for file include/print.hpp...
+Generating docs for file README.md...
+Generating page documentation...
+Generating group documentation...
+Generating class documentation...
+Generating namespace index...
+Generating graph info page...
+Generating directory documentation...
+Generating index page...
+Generating page index...
+Generating module index...
+Generating namespace index...
+Generating namespace member index...
+Generating annotated compound index...
+Generating alphabetical compound index...
+Generating hierarchical class index...
+Generating member index...
+Generating file index...
+Generating file member index...
+Generating example index...
+finalizing index lists...
+writing tag file...
+lookup cache used 1/65536 hits=2 misses=1
+finished...
+
+$ ls | grep "[^docs]" | xargs rm -rf //выводим внутренние каталоги и файлы + находим на выводе строки docs
+       + формируем список аргументов и команд (рекурсивное удаление файлов)
+$ mv docs/html/* . && rm -rf docs //удаляем перемещаем файлы и удаляем
+$ git checkout -b gh-pages //создаем новую ветку
+M    .DS\_Store
+D    CMakeLists.txt
+D    README.md
+D    docs/.DS\_Store
+D    docs/doxygen.conf
+D    examples/example1.cpp
+D    examples/example2.cpp
+D    file.txt
+D    html/bc\_s.png
+D    html/bdwn.png
+D    html/closed.png
+D    html/doc.png
+D    html/doxygen.css
+D    html/doxygen.png
+D    html/dynsections.js
+D    html/folderclosed.png
+D    html/folderopen.png
+D    html/index.html
+D    html/jquery.js
+D    html/md\_\_r\_e\_a\_d\_m\_e.html
+D    html/menu.js
+D    html/menudata.js
+D    html/nav\_f.png
+D    html/nav\_g.png
+D    html/nav\_h.png
+D    html/open.png
+D    html/pages.html
+D    html/search/all\_0.html
+D    html/search/all\_0.js
+D    html/search/close.png
+D    html/search/mag\_sel.png
+D    html/search/nomatches.html
+D    html/search/pages\_0.html
+D    html/search/pages\_0.js
+D    html/search/search.css
+D    html/search/search.js
+D    html/search/search\_l.png
+D    html/search/search\_m.png
+D    html/search/search\_r.png
+D    html/search/searchdata.js
+D    html/splitbar.png
+D    html/sync\_off.png
+D    html/sync\_on.png
+D    html/tab\_a.png
+D    html/tab\_b.png
+D    html/tab\_h.png
+D    html/tab\_s.png
+D    html/tabs.css
+D    include/print.hpp
+D    latex/Makefile
+D    latex/doxygen.sty
+D    latex/md\_\_r\_e\_a\_d\_m\_e.tex
+D    latex/refman.tex
+D    nano.save
+D    sources/print.cpp
+D    tests/catch.hpp
+D    tests/main.cpp
+D    tests/test1.cpp
+Switched to a new branch 'gh-pages'
+
+$ git add . //добавляем все
+$ git commit -m"added documentation" //создаем коммит
+[gh-pages f4bdc62] added documentation
+76 files changed, 700 insertions(+), 17241 deletions(-)
+delete mode 100644 CMakeLists.txt
+delete mode 100644 README.md
+rename html/index.html => \_r\_e\_a\_d\_m\_e\_8md.html (95%)
+rename html/bc\_s.png => bc\_s.png (100%)
+rename html/bdwn.png => bdwn.png (100%)
+rename html/closed.png => closed.png (100%)
+create mode 100644 dir\_d44c64559bbebec7f509842c48db8b23.html
+rename html/doc.png => doc.png (100%)
+delete mode 100644 docs/.DS\_Store
+delete mode 100644 docs/doxygen.conf
+rename html/doxygen.css => doxygen.css (100%)
+rename html/doxygen.png => doxygen.png (100%)
+rename html/dynsections.js => dynsections.js (100%)
+delete mode 100644 examples/example1.cpp
+delete mode 100644 examples/example2.cpp
+delete mode 100644 file.txt
+create mode 100644 files.html
+rename html/folderclosed.png => folderclosed.png (100%)
+rename html/folderopen.png => folderopen.png (100%)
+rename html/pages.html => globals.html (82%)
+create mode 100644 globals\_func.html
+delete mode 100644 html/search/all\_0.js
+delete mode 100644 html/search/pages\_0.js
+delete mode 100644 html/search/searchdata.js
+delete mode 100644 include/print.hpp
+rename html/md\_\_r\_e\_a\_d\_m\_e.html => index.html (99%)
+rename html/jquery.js => jquery.js (100%)
+delete mode 100644 latex/Makefile
+delete mode 100644 latex/doxygen.sty
+delete mode 100644 latex/md\_\_r\_e\_a\_d\_m\_e.tex
+delete mode 100644 latex/refman.tex
+rename html/menu.js => menu.js (100%)
+rename html/menudata.js => menudata.js (82%)
+delete mode 100644 nano.save
+rename html/nav\_f.png => nav\_f.png (100%)
+rename html/nav\_g.png => nav\_g.png (100%)
+rename html/nav\_h.png => nav\_h.png (100%)
+rename html/open.png => open.png (100%)
+create mode 100644 print\_8hpp.html
+create mode 100644 print\_8hpp\_source.html
+rename \{html/search => search\}/all\_0.html (100%)
+create mode 100644 search/all\_0.js
+create mode 100644 search/all\_1.html
+create mode 100644 search/all\_1.js
+create mode 100644 search/all\_2.html
+create mode 100644 search/all\_2.js
+rename \{html/search => search\}/close.png (100%)
+create mode 100644 search/files\_0.html
+create mode 100644 search/files\_0.js
+create mode 100644 search/files\_1.html
+create mode 100644 search/files\_1.js
+create mode 100644 search/functions\_0.html
+create mode 100644 search/functions\_0.js
+rename \{html/search => search\}/mag\_sel.png (100%)
+rename \{html/search => search\}/nomatches.html (100%)
+rename \{html/search => search\}/pages\_0.html (100%)
+create mode 100644 search/pages\_0.js
+rename \{html/search => search\}/search.css (100%)
+rename \{html/search => search\}/search.js (100%)
+rename \{html/search => search\}/search\_l.png (100%)
+rename \{html/search => search\}/search\_m.png (100%)
+rename \{html/search => search\}/search\_r.png (100%)
+create mode 100644 search/searchdata.js
+delete mode 100644 sources/print.cpp
+rename html/splitbar.png => splitbar.png (100%)
+rename html/sync\_off.png => sync\_off.png (100%)
+rename html/sync\_on.png => sync\_on.png (100%)
+rename html/tab\_a.png => tab\_a.png (100%)
+rename html/tab\_b.png => tab\_b.png (100%)
+rename html/tab\_h.png => tab\_h.png (100%)
+rename html/tab\_s.png => tab\_s.png (100%)
+rename html/tabs.css => tabs.css (100%)
+delete mode 100644 tests/catch.hpp
+delete mode 100644 tests/main.cpp
+delete mode 100644 tests/test1.cpp
+
+$ git push origin gh-pages //выгружаем новую ветку
+Counting objects: 24, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (24/24), done.
+Writing objects: 100% (24/24), 11.97 KiB | 1.71 MiB/s, done.
+Total 24 (delta 13), reused 0 (delta 0)
+remote: Resolving deltas: 100% (13/13), completed with 1 local object.
+To https://github.com/WhiteRabbitRo/lab07
+* [new branch]      gh-pages -> gh-pages
+
+$ git checkout master //возвращаемся к master
+Switched to branch 'master'
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}
+$ mkdir artifacts && cd artifacts //создаем директорию для скриншота и переходим в нее
+$ sleep 20s && gnome-screenshot --file artifacts/screenshot.png //скриню (с задержкой)
+# for macOS: $ screencapture -T 20 artifacts/screenshot.png
+# open https://$\{GITHUB\_USERNAME\}.github.io/lab07/print\_8hpp.html //переходим на страницу
+$ gdrive upload screenshot.png //выгружаем на gdrive скриншот
+Authentication needed
+Go to the following url in your browser:
+
+      https://accounts.google.com/o/oauth2/auth?access\_type=offline&client\_id=367116221053-7n0vf5akeru7on6o2fjinre
+      cpdoe99eg.apps.googleusercontent.com&redirect\_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response\_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&state=state
+
+Enter verification code: 4/AADx6h-f8sq2jUFwCmX2m4NxzchwKgIPyQlBukzwGqw5pp1ZJg4-Zcs
+Uploading screenshot.png
+Uploaded 1VgdOx3Auzkt6CGeYzBzH-z5Wp\_F-yDb- at 63.6 KB/s, total 126.1 KB
+
+$ SCREENSHOT\_ID=`gdrive list | grep screenshot | awk '\{ print $1; \}'` //создаем переменную с параметрами
+$ gdrive share $\{SCREENSHOT\_ID\} --role reader --type user --email $\{TEACHER\_EMAIL\} //отправляем скриншот
+Granted reader permission to user
+
+$ echo https://drive.google.com/open?id=$\{SCREENSHOT\_ID\} //переходим на страницу со скриншотом
+\end{DoxyCode}
+
+
+\subsection*{Report}
+
+
+\begin{DoxyCode}
+$ popd //возвращаемся в workspace
+~/WhiteRabbitRo/workspace
+$ export LAB\_NUMBER=07 //создаем переменную
+$ git clone https://github.com/tp-labs/lab$\{LAB\_NUMBER\} tasks/lab$\{LAB\_NUMBER\} //копируем директорию
+Cloning into 'tasks/lab07'...
+remote: Counting objects: 62, done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 62 (delta 0), reused 0 (delta 0), pack-reused 59
+Unpacking objects: 100% (62/62), done.
+
+$ mkdir reports/lab$\{LAB\_NUMBER\} //создаем каталог
+$ cp tasks/lab$\{LAB\_NUMBER\}/README.md reports/lab$\{LAB\_NUMBER\}/REPORT.md //создаем отчет
+$ cd reports/lab$\{LAB\_NUMBER\} //переходим в каталог
+$ edit REPORT.md //заполняем отчет
+$ gistup -m "lab$\{LAB\_NUMBER\}" //выгружаем в гит
+\end{DoxyCode}
+
+
+\subsection*{Links}
+
+
+\begin{DoxyItemize}
+\item \href{https://ru.wikipedia.org/wiki/HTML}{\tt H\+T\+ML}
+\item \href{https://ru.wikipedia.org/wiki/LaTeX}{\tt L\+AΤΕΧ}
+\item \href{https://ru.wikipedia.org/wiki/Man_(%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B0_Unix)}{\tt man}
+\item \href{https://ru.wikipedia.org/wiki/HTMLHelp}{\tt C\+HM}
+\item \href{https://ru.wikipedia.org/wiki/PostScript}{\tt Post\+Script}
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}
+Copyright (c) 2017 Братья Вершинины
+\end{DoxyCode}
+ 
